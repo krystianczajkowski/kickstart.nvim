@@ -149,6 +149,17 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+-- Replace capslock with escape on enter and revert on exit
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.cmd 'silent !setxkbmap -option caps:escape'
+  end,
+})
+vim.api.nvim_create_autocmd('VimLeave', {
+  callback = function()
+    vim.cmd '!setxkbmap -option'
+  end,
+})
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
